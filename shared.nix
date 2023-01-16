@@ -97,11 +97,11 @@
         # TODO: you've whittled this list down a lot over time
         #       maybe just add black by itself?
         #       drop this whole block if it's still here after may 2023
-        # (python3.withPackages (ps: with ps; [
-        #     black
-        #     aiohttp # I had a note that this was for a bugfix but idk which plugin
-        # ]))
-        black
+        (python3.withPackages (ps: with ps; [
+            black
+            aiohttp # I had a note that this was for a bugfix but idk which plugin
+        ]))
+        # black
     ] ++ lib.optionals stdenv.isDarwin [
     ];
 }
