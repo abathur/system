@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     bashrc = {
-      url = "github:abathur/bashrc.nix/wip";
+      url = "github:abathur/bashrc.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     mgitstatus = {
@@ -21,25 +21,42 @@
     };
   };
 
-  outputs = { self, bashrc, ... }@inputs: {
-    darwinConfigurations.abathur = inputs.darwin.lib.darwinSystem rec {
-      system = "x86_64-darwin";
-      inherit inputs;
+  outputs = { self, nixpkgs, bashrc, ... }@inputs:
+  let
+    mkSystem = { generator, system, modules, ... }: generator {
+      inherit system;
+      specialArgs = {
+        inherit inputs system self nixpkgs;
+      };
+      modules = [
+        # shared? common? something else?
+      ] ++ modules;
+    };
 
+  in {
+    darwinConfigurations.abathur = mkSystem {
+      generator = inputs.darwin.lib.darwinSystem;
+      system = "x86_64-darwin";
       modules = [
         bashrc.darwinModules.bashrc
         ./darwin.nix
       ];
     };
-    # TODO: defer for now; maybe revisit when you don't have to pin nixpkgs for lilgit?
-    # nixosConfigurations.myskran = inputs.nixpkgs.nixosSystem rec {
-    #   system = "x86_64-linux";
-    #   inherit inputs;
-
-    #   modules = [
-    #     bashrc.nixosModules.bashrc
-    #     ./nixos.nix
-    #   ];
-    # };
+    nixosConfigurations.myskran = mkSystem {
+      generator = inputs.nixpkgs.lib.nixosSystem;
+      system = "x86_64-linux";
+      modules = [
+        bashrc.nixosModules.bashrc
+        ./nixos.nix
+      ];
+    };
+    darwinConfigurations.travise = mkSystem {
+      generator = inputs.darwin.lib.darwinSystem;
+      system = "aarch64-darwin";
+      modules = [
+        bashrc.darwinModules.bashrc
+        ./darwin.nix
+      ];
+    };
   };
 }

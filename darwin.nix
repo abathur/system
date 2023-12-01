@@ -1,7 +1,8 @@
-{ config, inputs, ... }:
+{ config, inputs, system, ... }:
+
+assert system == "x86_64-darwin";
 
 let
-  system = "x86_64-darwin";
   # pkgs = inputs.nixpkgs.legacyPackages.${system};
   pkgs = import inputs.nixpkgs {
     inherit system;

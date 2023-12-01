@@ -69,7 +69,7 @@
         bc
         bat
         curl
-        exa
+        # exa -> eza # exa gets removed over the range I'm trying to bump
         rsync
         wget
         lynx
