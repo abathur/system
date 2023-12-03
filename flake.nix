@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -23,13 +23,29 @@
 
   outputs = { self, nixpkgs, bashrc, ... }@inputs:
   let
-    mkSystem = { generator, system, modules, ... }: generator {
+    mkSystem = { generator, system, username, modules, ... }: generator {
       inherit system;
-      specialArgs = {
-        inherit inputs system self nixpkgs;
+
+      specialArgs = let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [
+            inputs.mgitstatus.overlays.default
+            inputs.bashrc.overlays.default
+          ];
+          config = { allowUnfree = true; };
+        };
+        helpers = import ./helpers.nix;
+      in {
+        inherit inputs system self pkgs;
+        shared = import ./shared.nix {
+          inherit pkgs;
+        };
+        user = helpers.mkUser username;
       };
+
       modules = [
-        # shared? common? something else?
+        ./common.nix
       ] ++ modules;
     };
 
@@ -37,25 +53,33 @@
     darwinConfigurations.abathur = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
       system = "x86_64-darwin";
+      username = "abathur";
       modules = [
         bashrc.darwinModules.bashrc
         ./darwin.nix
+        ./abathur.nix
+        ./april2020.nix
       ];
     };
     nixosConfigurations.myskran = mkSystem {
       generator = inputs.nixpkgs.lib.nixosSystem;
       system = "x86_64-linux";
+      username = "myskran";
       modules = [
         bashrc.nixosModules.bashrc
         ./nixos.nix
+        ./myskran.nix
+        ./march2018.nix
       ];
     };
     darwinConfigurations.travise = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
       system = "aarch64-darwin";
+      username = "travise";
       modules = [
         bashrc.darwinModules.bashrc
         ./darwin.nix
+        # TODO: ./monthyear.nix
       ];
     };
   };
