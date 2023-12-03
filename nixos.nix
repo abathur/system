@@ -42,10 +42,10 @@
     };
     # I guess some of this stuff could be an override
     packages = with pkgs; [
-      # corefonts # unfree
-      # symbola # unfree
+      corefonts # unfree
+      symbola # unfree
       ubuntu_font_family
-      # vistafonts # unfree
+      vistafonts # unfree
     ]
     ++ shared.fonts;
   };
