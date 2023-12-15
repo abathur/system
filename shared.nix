@@ -87,14 +87,11 @@
     rustfmt
     shellcheck
     shfmt
-    # Mostly for ST3 plugins; projects should define
-    # their own
-    # TODO: you've whittled this list down a lot over time
-    #       maybe just add black by itself?
-    #       drop this whole block if it's still here after may 2023
+    # this is for ST3
+    # TODO: find a more-encapsulated approach?
     (python3.withPackages (ps: with ps; [
       black
-      aiohttp # I had a note that this was for a bugfix but idk which plugin
+      aiohttp # for some reason black/blackd can't find this
     ]))
     # black
   ] ++ lib.optionals stdenv.isDarwin [
