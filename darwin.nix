@@ -125,6 +125,9 @@ in {
     path = [ config.environment.systemPath ];
     # pass user so that script can output a daily log:
     # script itself logs to "$(printf '/Users/'"$1"'/backup.%(%a-%b-%d-%Y-%T)T.log')"
+    environment = {
+      NIX_PATH = "nixpkgs=${inputs.nixpkgs}";
+    };
     command = "~/.config/persistence/backup.sh ${user.handle}";
     serviceConfig = {
       StartCalendarInterval = [
