@@ -1,7 +1,5 @@
 { config, inputs, system, pkgs, shared, user, ... }:
 
-assert system == "x86_64-linux";
-
 {
   boot.kernelModules = [ "kvm-amd" ];
 

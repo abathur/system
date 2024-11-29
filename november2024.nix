@@ -1,7 +1,7 @@
 { config, inputs, system, pkgs, shared, user, ... }:
 
 let
-  multiUser = false;
+  multiUser = true;
 in
 {
   nix = {
@@ -16,8 +16,8 @@ in
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  system.stateVersion = 5;
 
   # TODO: disable eventually, but you still have a single-user install atm
-  services.nix-daemon.enable = false;
+  # services.nix-daemon.enable = false;
 }

@@ -50,7 +50,19 @@
     };
 
   in {
-    darwinConfigurations.abathur = mkSystem {
+    darwinConfigurations.abathur2024 = mkSystem {
+      generator = inputs.darwin.lib.darwinSystem;
+      system = "aarch64-darwin";
+      username = "abathur";
+      modules = [
+        bashrc.darwinModules.bashrc
+        ./darwin.nix
+        ./abathur.nix
+        ./november2024.nix
+      ];
+    };
+
+    darwinConfigurations.abathur2020 = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
       system = "x86_64-darwin";
       username = "abathur";
@@ -61,6 +73,7 @@
         ./april2020.nix
       ];
     };
+
     nixosConfigurations.myskran = mkSystem {
       generator = inputs.nixpkgs.lib.nixosSystem;
       system = "x86_64-linux";
