@@ -13,12 +13,6 @@
       url = "github:abathur/bashrc.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mgitstatus = {
-      url = "github:abathur/multi-git-status/lookup_worktree_flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "bashrc/flake-utils";
-      inputs.flake-compat.follows = "bashrc/flake-compat";
-    };
   };
 
   outputs = { self, nixpkgs, bashrc, ... }@inputs:
@@ -30,7 +24,6 @@
         pkgs = import inputs.nixpkgs {
           inherit system;
           overlays = [
-            inputs.mgitstatus.overlays.default
             inputs.bashrc.overlays.default
           ];
           config = { allowUnfree = true; };

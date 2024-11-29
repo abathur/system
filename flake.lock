@@ -333,35 +333,6 @@
         "type": "github"
       }
     },
-    "mgitstatus": {
-      "inputs": {
-        "flake-compat": [
-          "bashrc",
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "bashrc",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1671930608,
-        "narHash": "sha256-8xLLrpAGlsbUS7fWz/ovDvEb2gG+1kzrjQtGM99a4eU=",
-        "owner": "abathur",
-        "repo": "multi-git-status",
-        "rev": "de0ba4d5faae4317039f18f2e3cf5701ae858c77",
-        "type": "github"
-      },
-      "original": {
-        "owner": "abathur",
-        "ref": "lookup_worktree_flake",
-        "repo": "multi-git-status",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1667639549,
@@ -398,7 +369,6 @@
       "inputs": {
         "bashrc": "bashrc",
         "darwin": "darwin",
-        "mgitstatus": "mgitstatus",
         "nixpkgs": "nixpkgs_2"
       }
     },
