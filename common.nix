@@ -1,12 +1,6 @@
 { config, options, inputs, pkgs, shared, user, ... }:
 
 {
-  # TODO: until a nix-darwin bug is fixed, you have to darwin-rebuild switch -Q once with this set to false, and then set it to true and do it (without -Q)... (i.e., this breaks the config for bootstrapping)
-  # Dec 27 2022: rm if you've bootstrapped a system without seeing this
-  fonts = {
-    fontDir.enable = true;
-  };
-
   nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     package = ((pkgs.nixVersions.stable.override {

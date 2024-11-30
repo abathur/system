@@ -44,12 +44,9 @@ in {
     } ];
   };
 
-  # TODO: until a nix-darwin bug is fixed, you have to darwin-rebuild switch -Q once with this set to false, and then set it to true and do it (without -Q)... (i.e., this breaks the config for bootstrapping)
-  # Dec 27 2022: rm if you've bootstrapped a system without seeing this
   fonts = {
-    # TODO: follow nix-darwin/issues/752 for when this can
-    # rename to fonts.packages (and maybe move to common.nix)
-    fonts = shared.fonts;
+    # TODO: both nixos and darwin use this core; can this move to common.nix?
+    packages = shared.fonts;
   };
 
   networking = with shared; {
