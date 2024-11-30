@@ -23,7 +23,7 @@
   };
 
   programs = {
-    bash.enableCompletion = true;
+    bash.completion.enable = true;
     bashrc = { # mine
       enable = true;
       user = user.handle;
