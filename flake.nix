@@ -2,8 +2,11 @@
   description = "SIGH";
 
   inputs = {
-    nixpkgs = {
+    nixospkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
+    };
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
     };
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -17,11 +20,11 @@
 
   outputs = { self, nixpkgs, bashrc, ... }@inputs:
   let
-    mkSystem = { generator, system, username, modules, ... }: generator {
+    mkSystem = { generator, whichpkgs, system, username, modules, ... }: generator {
       inherit system;
 
       specialArgs = let
-        pkgs = import inputs.nixpkgs {
+        pkgs = import whichpkgs {
           inherit system;
           overlays = [
             inputs.bashrc.overlays.default
@@ -45,6 +48,7 @@
   in {
     darwinConfigurations.abathur2024 = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
+      whichpkgs = inputs.nixpkgs;
       system = "aarch64-darwin";
       username = "abathur";
       modules = [
@@ -57,6 +61,7 @@
 
     darwinConfigurations.abathur2020 = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
+      whichpkgs = inputs.nixpkgs;
       system = "x86_64-darwin";
       username = "abathur";
       modules = [
@@ -69,6 +74,7 @@
 
     nixosConfigurations.myskran = mkSystem {
       generator = inputs.nixpkgs.lib.nixosSystem;
+      whichpkgs = inputs.nixospkgs;
       system = "x86_64-linux";
       username = "myskran";
       modules = [
@@ -80,6 +86,7 @@
     };
     darwinConfigurations.travise = mkSystem {
       generator = inputs.darwin.lib.darwinSystem;
+      whichpkgs = inputs.nixpkgs;
       system = "aarch64-darwin";
       username = "travise";
       modules = [
