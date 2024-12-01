@@ -72,6 +72,9 @@ in {
   ++ gaming
   ;
 
+  homebrew.enable = true;
+  environment.systemPath = [ config.homebrew.brewPrefix ];
+
   system.defaults = {
     # Whether to enable quarantine for downloaded applications.
     LaunchServices.LSQuarantine = false;
