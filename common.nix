@@ -3,12 +3,6 @@
 {
   nix = {
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    package = ((pkgs.nixVersions.stable.override {
-      withAWS = false;
-    }).overrideAttrs(prev: {
-      doCheck = false;
-      doInstallCheck = false;
-    }));
     registry.nixpkgs.flake = inputs.nixpkgs;
 
     extraOptions = ''
