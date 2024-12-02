@@ -72,7 +72,47 @@ in {
   ++ gaming
   ;
 
-  homebrew.enable = true;
+  homebrew = {
+    enable = true;
+
+    extraConfig = ''
+      cask_args appdir: "~/Applications"
+    '';
+
+    casks = [
+      # First things that are required for the bootstrap
+      "flux"
+      "dash"
+      # DOING: non-dev for now; dev requires a license and I don't have one for 4 yet
+      # "sublime-text@dev"
+      "sublime-text"
+      "tunnelblick"
+
+      "spotify"
+      "microsoft-teams"
+
+      # Then other fairly quick things
+      "whoozle-android-file-transfer"
+      "disk-inventory-x"
+      "drop-to-gif"
+
+      # Then slower non-critical stuff that wouldn't be a PITA to manually reinstall if they timeout
+      "adobe-acrobat-reader"
+      "google-chrome"
+
+      # I don't really want everything that comes with office,
+      # let's try just getting what we want
+      "microsoft-excel"
+      "microsoft-word"
+
+      # API tester
+      "insomnia"
+
+      # Android dev?
+      "android-studio"
+      "android-platform-tools"
+    ];
+  };
   environment.systemPath = [ config.homebrew.brewPrefix ];
 
   system.defaults = {
