@@ -157,6 +157,9 @@ in {
     };
   };
 
+  # supposedly temporary, see nix-darwin#1341
+  system.primaryUser = "${user.handle}";
+
   # TODO/DOING: you can live w/ this here for now, but if you
   # create a sparse work config you'd want to leave it out.
   # Basically, don't let this block getting NixOS flaked and
