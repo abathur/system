@@ -80,37 +80,40 @@ in {
     '';
 
     casks = [
-      # First things that are required for the bootstrap
-      "flux"
+      /*
+      once upon a time this order was shaped by the fact that
+      I threw this into the background so other tasks could
+      continue, so it was important to do things that later
+      bootstrap tasks would touch "early" enough that they'd
+      be done by then.
+
+      Now that I've handed most of these over to nix-darwin,
+      it's done synchronously and I'm not going to fight that.
+
+      The best order *now* is to frontload things that prompt
+      password, so that I don't have to babysit for as long.
+      */
+      # sudo-prompters:
+      "adobe-acrobat-reader"
+      "microsoft-excel"
+      "microsoft-teams"
+      "microsoft-word"
+
+      # everything else can just be alpha-sorted now
+      "android-platform-tools"
+      "android-studio"
       "dash"
+      "disk-inventory-x"
+      "drop-to-gif"
+      "flux"
+      "google-chrome"
+      "insomnia"
+      "spotify"
       # DOING: non-dev for now; dev requires a license and I don't have one for 4 yet
       # "sublime-text@dev"
       "sublime-text"
       "tunnelblick"
-
-      "spotify"
-      "microsoft-teams"
-
-      # Then other fairly quick things
       "whoozle-android-file-transfer"
-      "disk-inventory-x"
-      "drop-to-gif"
-
-      # Then slower non-critical stuff that wouldn't be a PITA to manually reinstall if they timeout
-      "adobe-acrobat-reader"
-      "google-chrome"
-
-      # I don't really want everything that comes with office,
-      # let's try just getting what we want
-      "microsoft-excel"
-      "microsoft-word"
-
-      # API tester
-      "insomnia"
-
-      # Android dev?
-      "android-studio"
-      "android-platform-tools"
     ];
   };
   environment.systemPath = [ config.homebrew.brewPrefix ];
