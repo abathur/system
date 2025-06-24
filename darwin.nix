@@ -100,7 +100,7 @@ in {
       "microsoft-word"
 
       # everything else can just be alpha-sorted now
-      "android-platform-tools"
+      # "android-platform-tools" #TODO: hash error on dl
       "android-studio"
       "dash"
       "disk-inventory-x"
